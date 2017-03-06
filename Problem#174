@@ -1,0 +1,47 @@
+import java.io.*;
+import java.util.*;
+import java.text.*;
+import java.math.*;
+import java.util.regex.*;
+
+public class Solution {
+ 
+ /*
+         * Observations: 
+         * (i)  total no of tiles, t(i,j) = i^2-j^2, where j = 1,2..(i-2) and i = 1,2,3.. s.t. t<=1000000
+         *      If 'i' is even, j will be even; if 'i' is odd, j will also be odd (to maintain hor. and ver. symmetry)
+         * (ii) For different values of i, whenever t evaluates to same value, we increment no of laminaes   
+         *      corresponding to that 't' by 1. For eg t(9,7) and t(6,2) both evaluate to 32 tiles, so L[32]=2
+         * (iii) In the end, we'll take those values of t for which the no of possible laminaes are between 1 and 10
+ */
+   
+   public static void main(String[] args) {
+        /* Enter your code here. Read input from STDIN. Print output to STDOUT. Your class should be named Solution. */
+
+        Scanner sc = new Scanner(System.in);
+        int T = sc.nextInt();
+        int k = sc.nextInt();
+        for(int test=0;test<T;test++){
+            int[] laminae = new int[k+1];
+        int ans = 0;
+        int i = 1;
+       
+        while(i*i-(i-2)*(i-2)<=k){
+            int j = i-2;
+            while(i*i-j*j<=k&&j>0){
+                laminae[i*i-j*j]++;
+                j=j-2;
+            }
+            i++;
+        }
+        for( i=1;i<=k;i++){
+            if(laminae[i]>=1&&laminae[i]<=10){
+                ans++;
+            }
+        }
+        System.out.println(ans);
+        
+        }
+        
+    }
+}
